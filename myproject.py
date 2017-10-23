@@ -10,7 +10,6 @@ def index():
 @application.route('/check')
 def check():
     return controlla_ore()
-
     
 if __name__ == '__main__':
     application.run(host='0.0.0.0')

@@ -1,7 +1,7 @@
 import pandas as pd
 from pandas.tseries.offsets import *
 from datetime import timedelta
-
+from flask import render_template
 
 def controlla_ore():
     #filename = 'C:\\Users\\00917777\\Downloads\\Timbrature_12_10_2017 18.51.50.xlsx'
@@ -68,7 +68,8 @@ def controlla_ore():
             print('######', single_date.strftime(format='%Y-%m-%d'), '######')
         # break
 
-    return('DONE')
+    #return('DONE')
+    return render_template('home.html')
 
 if __name__ == '__main__':
     controlla_ore()
