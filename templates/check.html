@@ -1,0 +1,23 @@
+{% extends "home.html" %}
+
+
+{% block body %}
+
+<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Check</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Help</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">Check</div>
+    <div role="tabpanel" class="tab-pane" id="profile">Questo è l'help</div>
+
+  </div>
+
+</div>
+
+{% endblock %}

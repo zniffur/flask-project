@@ -9,7 +9,7 @@ def index():
     
 @application.route('/check')
 def check():
-    return controlla_ore()
+    return render_template('check.html')
     
 if __name__ == '__main__':
     application.run(host='0.0.0.0')
