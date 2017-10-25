@@ -7,14 +7,20 @@
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Check</a></li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Help</a></li>
+    <li role="presentation" class="active"><a href="#check" aria-controls="check" role="tab" data-toggle="tab">Check</a></li>
+    <li role="presentation"><a href="#help" aria-controls="help" role="tab" data-toggle="tab">Help</a></li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="home">Check</div>
-    <div role="tabpanel" class="tab-pane" id="profile">Questo è l'help</div>
+   
+    <div role="tabpanel" class="tab-pane active" id="check">
+    {{ text }}
+    </div>
+    
+    <div role="tabpanel" class="tab-pane" id="help">
+    Questo è l'help
+    </div>
 
   </div>
 
