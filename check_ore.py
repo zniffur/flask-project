@@ -1,7 +1,7 @@
 import pandas as pd
 from pandas.tseries.offsets import *
 from datetime import timedelta
-from flask import render_template
+from flask import render_template, url_for
 
 def controlla_ore():
     #filename = 'C:\\Users\\00917777\\Downloads\\Timbrature_12_10_2017 18.51.50.xlsx'
@@ -9,7 +9,10 @@ def controlla_ore():
     #filename = '/Users/simo/Dropbox/Timbrature_sett.xlsx'
     #filename = '/Users/simo/Dropbox/Timbrature_ott.xlsx
     # filename = 'images/Timbrature_ott.xlsx'
-    filename = 'images/Timbrature_sett.xlsx'
+    filename = 'static/downloads/Timbrature_sett.xlsx'
+#    filename = 'static/downloads/Timbrature_ott.xlsx'
+    tables = []
+    strings = ['na']
 
     df = pd.read_excel(filename, skiprows=1)
     # print(df.head())
@@ -27,11 +30,14 @@ def controlla_ore():
     def calcola_giorno(this_day):
         this_day.reset_index(inplace=True, drop=True) # reinizializza l'index a 0, inplace
         print this_day
+        table = this_day.to_html(classes = 'table table-condensed', header=False, index=False, border=0)
+        outstring = ''
     
         if this_day.GiornoOra.count() == 2:	 # entrata e uscita
             totOreGiorno = this_day.GiornoOra[1] - this_day.GiornoOra[0]
             print 'Ore Lorde: ', totOreGiorno 
             print 'Ore nette (int. mensa): ', totOreGiorno - timedelta(minutes=30)
+            outstring = 'Ore Lorde: ' + str(totOreGiorno) + ' Ore nette (int. mensa): ' + str(totOreGiorno - timedelta(minutes=30))
         
         elif this_day.GiornoOra.count() == 4:  # TODO: distinguere con e senza inizio pausa
             ore_mattino = this_day.GiornoOra[1] - this_day.GiornoOra[0]
@@ -39,6 +45,7 @@ def controlla_ore():
             totOreGiorno = ore_mattino + ore_pomeriggio
             print 'Ore Lorde: ', totOreGiorno 
             print 'Ore nette (int. mensa): ', totOreGiorno
+            outstring = 'Ore Lorde: ' + str(totOreGiorno) + ' Ore nette (int. mensa): ' + str(totOreGiorno)
         
         elif this_day.GiornoOra.count() == 6:  # Anomalia, calcolo e/u a coppie
             ore_1 = this_day.GiornoOra[1] - this_day.GiornoOra[0]
@@ -48,9 +55,13 @@ def controlla_ore():
             totOreGiorno = ore_1 + ore_2 + ore_3
             print 'Ore Lorde: ', totOreGiorno 
             print 'Ore nette (int. mensa): ', totOreGiorno
+            outstring = 'Ore Lorde: ' + str(totOreGiorno) + ' Ore nette (int. mensa): ' + str(totOreGiorno)
     
         else:  # ogni altro caso
             print(" ----- Numero di timbrature ANOMALO ----- ")
+            outstring = " ----- Numero di timbrature ANOMALO ----- "
+        
+        return table, outstring
 
 
     start_date = df.GiornoOra[0]  # primo giorno della prima timbratura
@@ -63,13 +74,20 @@ def controlla_ore():
         mask = (df.GiornoOra >= single_date) & (df.GiornoOra < end_date)
         tddf = df.loc[mask]
         if not tddf.empty: # giorno con timbrature
-            calcola_giorno(tddf)
+            t, os = calcola_giorno(tddf)
+            tables.append(t)
+            strings.append(os)
         else:  # giorno senza trimbrature
             print('######', single_date.strftime(format='%Y-%m-%d'), '######')
+            tables.append('')
+            strings.append('######' + single_date.strftime(format='%Y-%m-%d') + '######')
         # break
-
-    #return('DONE')
-    return render_template('home.html')
+        
+#    return(df.to_html(classes = 'table table-condensed', header=False, index=False, border=0))
+    return(tables, strings)
+#    return render_template('home.html')
+    
 
 if __name__ == '__main__':
-    controlla_ore()
+    tables, strings = controlla_ore()
+    print strings
