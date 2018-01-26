@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Document</title>
+  </head>
+  <body>
+    <ul>
+      {% for num in nums %}
+        {% if num % 2 == 0 %}
+          <li>{{ num }}</li>
+          {% endif %}
+      {% endfor %}
+    </ul>
+
+  </body>
+</html>

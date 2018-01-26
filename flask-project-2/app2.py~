@@ -1,0 +1,17 @@
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+
+@app.route("/send", methods=['GET', 'POST'])
+def send():
+    if request.methods == 'POST':  # è una post, si carica il risultato
+        age = request.form['age']
+        return render_template('age.html', age=age)
+
+    return render_template('webforms.html')  # è una GET, si carica la form di input
+
+
+if __name__ == "__main__":
+   app.debug = True
+   app.run(host="0.0.0.0", port=8000)

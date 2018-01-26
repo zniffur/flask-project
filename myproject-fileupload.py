@@ -11,10 +11,12 @@ application = Flask(__name__)
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
+
 @application.route("/")
 def index():
-#    return "<h1 style='color:blue'>Main page</h1>"
+    # return "<h1 style='color:blue'>Main page</h1>"
     return render_template("upload.html")
+
 
 @application.route("/upload", methods=['POST'])
 def upload():
@@ -31,7 +33,7 @@ def upload():
 
     return render_template("complete.html")
 
-        
+
 @application.route("/parse", methods=['GET', 'POST'])
 def parse():
     if request.method == 'POST':
@@ -56,7 +58,7 @@ def parse():
             <title>Upload new File</title>
             <h1>Upload success !</h1>
             '''
-                                    
+
     return '''
     <!doctype html>
     <title>Upload new File</title>
@@ -66,12 +68,12 @@ def parse():
          <input type=submit value=Upload>
     </form>
     '''
-    
+
 
 @application.route("/validator")
 def validate():
     return "<h1 style='color:black'>This is the validator</h1>"
 
+
 if __name__ == "__main__":
     application.run(host='0.0.0.0')
-    

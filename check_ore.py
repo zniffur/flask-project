@@ -4,11 +4,7 @@ from datetime import timedelta
 from flask import render_template, url_for
 
 def controlla_ore():
-    #filename = 'C:\\Users\\00917777\\Downloads\\Timbrature_12_10_2017 18.51.50.xlsx'
-    #filename = 'C:\\Users\\00917777\\Downloads\\Timbrature_12_10_2017 18.51.50.xlsx'
-    #filename = '/Users/simo/Dropbox/Timbrature_sett.xlsx'
-    #filename = '/Users/simo/Dropbox/Timbrature_ott.xlsx
-    # filename = 'images/Timbrature_ott.xlsx'
+
     filename = 'static/downloads/Timbrature_sett.xlsx'
 #    filename = 'static/downloads/Timbrature_ott.xlsx'
     tables = []
@@ -90,4 +86,4 @@ def controlla_ore():
 
 if __name__ == '__main__':
     tables, strings = controlla_ore()
-    print strings
+    # print strings
